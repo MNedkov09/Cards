@@ -1,3 +1,5 @@
 *.exe
 cards.exe
 *.log
+*.o
+encryptedDeck.txt

@@ -1,36 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "xorcrypt.h"
 
 #define NUM_PLAYERS 4
 #define HAND_SIZE 13
-#define DECK_SIZE 52
-
-typedef struct
-{
-    int rank;  // 1-13
-    char suit; // 'S','H','D','C'
-} Card;
 
 int main()
 {
-    FILE *f = fopen("deck.txt", "r");
-    if (!f)
-    {
-        printf("Failed to open the file.\n");
-        return 1;
-    }
-
     Card deck[DECK_SIZE];
-    for (int i = 0; i < DECK_SIZE; i++)
+    FILE *ef = fopen(ENCRYPTED_FILE, "rb");
+    if (ef)
     {
-        if (fscanf(f, "%d %c", &deck[i].rank, &deck[i].suit) != 2)
+        fclose(ef);
+        decryptDeck(deck);
+    }
+    else
+    {
+        FILE *f = fopen("deck.txt", "r");
+        if (!f)
         {
-            printf("Error reading cards from the file.\n");
-            fclose(f);
+            printf("Failed to open the file.\n");
             return 1;
         }
+        for (int i = 0; i < DECK_SIZE; i++)
+        {
+            if (fscanf(f, "%d %c", &deck[i].rank, &deck[i].suit) != 2)
+            {
+                printf("Error reading cards from the file.\n");
+                fclose(f);
+                return 1;
+            }
+        }
+        fclose(f);
+        encryptDeck(deck);
     }
-    fclose(f);
 
     Card hands[NUM_PLAYERS][HAND_SIZE];
     int handCount[NUM_PLAYERS] = {0};
