@@ -16,7 +16,7 @@ int main()
     }
     else
     {
-        FILE *f = fopen("deck.txt", "r");
+        FILE *f = fopen("deck2.txt", "r");
         if (!f)
         {
             printf("Failed to open the file.\n");

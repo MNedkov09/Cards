@@ -3,9 +3,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct Card { int rank; char suit; };
+struct Card
+{
+    int rank;
+    char suit;
+};
 
-void encryptDeck(Card* cardArray)
+void encryptDeck(Card *cardArray)
 {
     char buffer[DECK_SIZE * LINE_SIZE];
     int pos = 0;
@@ -45,7 +49,7 @@ void encryptDeck(Card* cardArray)
     }
 }
 
-void decryptDeck(Card* cardArray)
+void decryptDeck(Card *cardArray)
 {
     char buffer[DECK_SIZE * LINE_SIZE + 1];
     size_t filesize = 0;
@@ -130,5 +134,3 @@ void decryptDeck(Card* cardArray)
         }
     }
 }
-
-
